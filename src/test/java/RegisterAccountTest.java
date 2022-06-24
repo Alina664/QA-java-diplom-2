@@ -40,7 +40,7 @@ public class RegisterAccountTest extends BaseTest{
     }
 
     @Parameterized.Parameters(name = "Тестовые данные: {0} {1} {2} {3}")
-    public static Object[] getOrderWithDifferentColor() {
+    public static Object[] getUserWithDifferentParameters() {
         return new Object[][]{
                 {"Успешная регистрация", "alina22222@yandex.ru", "1234", "alina", true, null, HttpURLConnection.HTTP_OK},
                 {"Регистрация без email",null, "1234", "alina", false, "Email, password and name are required fields", HttpURLConnection.HTTP_FORBIDDEN},
