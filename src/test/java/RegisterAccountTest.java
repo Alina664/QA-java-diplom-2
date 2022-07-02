@@ -1,17 +1,14 @@
-import accountRegistr.Account;
-import accountRegistr.TokenInfo;
+import account.Account;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.net.HttpURLConnection;
 import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;

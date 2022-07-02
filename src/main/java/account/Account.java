@@ -1,4 +1,4 @@
-package accountRegistr;
+package account;
 
 import lombok.Data;
 
@@ -22,6 +22,17 @@ public class Account {
     }
 
     public Account() {
+    }
+
+    public Account(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+
+    public Account(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public ArrayList<String> registerNewAccountAndReturnLoginPassword() {

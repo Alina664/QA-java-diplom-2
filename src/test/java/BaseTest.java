@@ -1,14 +1,15 @@
-import accountRegistr.Account;
-import accountRegistr.TokenInfo;
+import account.Account;
+import account.TokenInfo;
 import io.restassured.RestAssured;
 import org.junit.Before;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
 public class BaseTest {
+    static ArrayList<String> loginPass = new ArrayList<>();
     @Before
     public void setUp() {
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";

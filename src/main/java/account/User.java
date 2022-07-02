@@ -1,4 +1,4 @@
-package accountRegistr;
+package account;
 
 import lombok.Data;
 
