@@ -41,8 +41,6 @@ public class RegisterAccountDuplicatesTest extends BaseTest{
                         new Account("alina22222@yandex.ru","1234", "alina"), false, "User already exists", HttpURLConnection.HTTP_FORBIDDEN},
                 {"Содание дубликата только по email",new Account("alina22222@yandex.ru","12345",  "alina"),
                         new Account("alina22222@yandex.ru",  "1234", "alina"), false, "User already exists", HttpURLConnection.HTTP_FORBIDDEN},
-                {"Содание дубликата только по паролю",new Account("alina22223@yandex.ru", "12345",  "alina2"),
-                        new Account("alina22222@yandex.ru","1234", "alina"), true,  null, HttpURLConnection.HTTP_OK},
         };
     }
 
@@ -65,7 +63,7 @@ public class RegisterAccountDuplicatesTest extends BaseTest{
     }
 
     @Test
-    public void registerDublicatesUser() {
+    public void registerDuplicatesUser() {
         sendPostRequestRegisterUser(user);
         Response response = sendPostRequestRegisterUser(userDuplicates);
         compareResult(response);

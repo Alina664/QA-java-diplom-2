@@ -1,9 +1,6 @@
 package ingredients;
 
-import lombok.Data;
-
-@Data
-public class DataI {
+public class Data {
     private String _id;
     private String name;
     private String type;
@@ -17,7 +14,7 @@ public class DataI {
     private String image_large;
     private int __v;
 
-    public DataI(String _id, String name, String type, int proteins, int fat, int carbohydrates, int calories, int price, String image, String image_mobile, String image_large, int __v) {
+    public Data(String _id, String name, String type, int proteins, int fat, int carbohydrates, int calories, int price, String image, String image_mobile, String image_large, int __v) {
         this._id = _id;
         this.name = name;
         this.type = type;
@@ -30,5 +27,9 @@ public class DataI {
         this.image_mobile = image_mobile;
         this.image_large = image_large;
         this.__v = __v;
+    }
+
+    public String get_id() {
+        return _id;
     }
 }

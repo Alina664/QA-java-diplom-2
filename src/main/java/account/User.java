@@ -6,6 +6,8 @@ import lombok.Data;
 public class User {
     private String email;
     private String name;
+    private String createdAt;
+    private String updatedAt;
 
     public User(String email, String name) {
         this.email = email;
@@ -13,5 +15,12 @@ public class User {
     }
 
     public User() {
+    }
+
+    public User(String email, String name, String createdAt, String updatedAt) {
+        this.email = email;
+        this.name = name;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }

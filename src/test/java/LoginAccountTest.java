@@ -3,16 +3,15 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(Parameterized.class)
 @Epic("Авторизация")
@@ -23,17 +22,8 @@ public class LoginAccountTest extends BaseTest {
     private final boolean isSuccess;
     private final String message;
     private final int statusCode;
-
-    @Before
-    public void newAccount() {
-        Account account = new Account("alina22222@yandex.ru", "1234", "alina");
-        given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(account)
-                .when()
-                .post("/api/auth/register");
-    }
+    static Account account = new Account();
+    static ArrayList<String> user = account.registerNewAccountAndReturnLoginPassword();
 
     public LoginAccountTest(String description, String email, String password, boolean isSuccess, String message, int statusCode) {
         this.description = description;
@@ -47,8 +37,8 @@ public class LoginAccountTest extends BaseTest {
     @Parameterized.Parameters(name = "{0}: {1}, {2}")
     public static Object[] getAccount() {
         return new Object[][]{
-                {"Пользователь существует","alina22222@yandex.ru", "1234", true, null, HttpURLConnection.HTTP_OK},
-                {"Пользователь с таким паролем и логином не существует","alina22222@yandex.ru", "alina22222@yandex.ru", false, "email or password are incorrect", HttpURLConnection.HTTP_UNAUTHORIZED},
+                {"Пользователь существует",user.get(0), user.get(1), true, null, HttpURLConnection.HTTP_OK},
+                {"Пользователь с таким паролем и логином не существует",user.get(0), user.get(0), false, "email or password are incorrect", HttpURLConnection.HTTP_UNAUTHORIZED},
         };
     }
 
@@ -80,8 +70,8 @@ public class LoginAccountTest extends BaseTest {
 
     @After
     public void deleteUser() {
-        if (getAccessToken(email, password) != null) {
-            deleteUser(getAccessToken(email, password).replace("Bearer ", ""));
+        if (getAccessToken(user.get(0), user.get(1)) != null) {
+            deleteUser(getAccessToken(user.get(0), user.get(1)).replace("Bearer ", ""));
         }
     }
 }

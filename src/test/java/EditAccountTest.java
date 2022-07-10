@@ -145,10 +145,10 @@ public class EditAccountTest extends BaseTest{
     }
 
     @Test
-    @Description("Меняем email на другое без авторизации")
+    @Description("Меняем email на другой существующий")
     public void editAccountFromEmailExist(){
-        logPass.put("email",newEmail);
-        account.setEmail(newEmail);
+        logPass.put("email",duplicateEmail);
+        account.setEmail(duplicateEmail);
         Account editAccount = new Account(logPass);
         Response response = sendPatchRequestEditUser(editAccount, tokenInfo.getAccessToken().replace("Bearer ", ""));
         compareResultWithExistUser(response);

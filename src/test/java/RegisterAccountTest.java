@@ -2,6 +2,7 @@ import account.Account;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +13,6 @@ import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
 
 @Epic("Регистрация")
 @RunWith(Parameterized.class)
@@ -39,10 +39,10 @@ public class RegisterAccountTest extends BaseTest{
     @Parameterized.Parameters(name = "Тестовые данные: {0} {1} {2} {3}")
     public static Object[] getUserWithDifferentParameters() {
         return new Object[][]{
-                {"Успешная регистрация", "alina22222@yandex.ru", "1234", "alina", true, null, HttpURLConnection.HTTP_OK},
-                {"Регистрация без email",null, "1234", "alina", false, "Email, password and name are required fields", HttpURLConnection.HTTP_FORBIDDEN},
-                {"Регистрация без пароля","alina22222@yandex.ru", null, "alina", false, "Email, password and name are required fields", HttpURLConnection.HTTP_FORBIDDEN},
-                {"Регистрация без имени","alina22222@yandex.ru", "1234", null, false, "Email, password and name are required fields", HttpURLConnection.HTTP_FORBIDDEN},
+                {"Успешная регистрация", RandomStringUtils.randomAlphabetic(10) + "@yandex.ru", RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10), true, null, HttpURLConnection.HTTP_OK},
+                {"Регистрация без email",null, RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10), false, "Email, password and name are required fields", HttpURLConnection.HTTP_FORBIDDEN},
+                {"Регистрация без пароля", RandomStringUtils.randomAlphabetic(10) + "@yandex.ru", null, RandomStringUtils.randomAlphabetic(10), false, "Email, password and name are required fields", HttpURLConnection.HTTP_FORBIDDEN},
+                {"Регистрация без имени", RandomStringUtils.randomAlphabetic(10) + "@yandex.ru", RandomStringUtils.randomAlphabetic(10), null, false, "Email, password and name are required fields", HttpURLConnection.HTTP_FORBIDDEN},
         };
     }
 
@@ -85,8 +85,6 @@ public class RegisterAccountTest extends BaseTest{
 
     @After
     public void deleteUser(){
-        //user.putAll(Map.of("email", email,"password", password)));
-        //Account account = createUser(user);
         if (getAccessToken(email, password)!=null) {
             deleteUser(getAccessToken(email, password).replace("Bearer ",""));
         }
