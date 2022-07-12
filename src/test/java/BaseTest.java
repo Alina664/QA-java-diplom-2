@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 public class BaseTest {
     static ArrayList<String> loginPass = new ArrayList<>();
@@ -54,14 +55,12 @@ public class BaseTest {
 
     @Step("Send POST request /api/auth/login")
     public Response sendPostRequestAuthUser(Account account) {
-        Response response =
-                given()
+        return given()
                         .header("Content-type", "application/json")
                         .and()
                         .body(account)
                         .when()
                         .post("/api/auth/login");
-        return response;
     }
 
     @Step("Send Get request not auth /api/orders")
@@ -83,7 +82,7 @@ public class BaseTest {
                 .get("/api/orders");
     }
 
-    @Step("Send POST request with auth /api/auth/register")
+    @Step("Send PATCH request with auth /api/auth/user")
     public Response sendPatchRequestEditUser(Account account, String token) {
         return given()
                 .header("Content-type", "application/json")
@@ -94,7 +93,7 @@ public class BaseTest {
                 .patch("/api/auth/user");
     }
 
-    @Step("Send POST request not auth /api/auth/register")
+    @Step("Send PATCH request not auth /api/auth/user")
     public Response sendPatchRequestEditUser(Account account) {
         return given()
                 .header("Content-type", "application/json")
@@ -135,5 +134,12 @@ public class BaseTest {
                 .auth().oauth2(token)
                 .when()
                 .post("/api/orders");
+    }
+
+    @Step("Compare result from request")
+    public void compareResult(Response response,String message, Boolean isSuccess, int statusCode) {
+        response.then().assertThat().body("message", equalTo(message))
+                .and().body("success", equalTo(isSuccess))
+                .and().statusCode(statusCode);
     }
 }

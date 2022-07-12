@@ -44,18 +44,11 @@ public class RegisterAccountDuplicatesTest extends BaseTest{
         };
     }
 
-    @Step("Compare result from request")
-    public void compareResult(Response response) {
-        response.then().assertThat().body("message", equalTo(message))
-                .and().body("success", equalTo(isSuccess))
-                .and().statusCode(statusCode);
-    }
-
     @Test
     public void registerDuplicatesUser() {
         sendPostRequestRegisterUser(user);
         Response response = sendPostRequestRegisterUser(userDuplicates);
-        compareResult(response);
+        compareResult(response, message, isSuccess, statusCode);
     }
 
     @After

@@ -12,7 +12,6 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 
 @Epic("Создание заказа")
 public class CreateOrdersTest extends BaseTest{
@@ -29,13 +28,6 @@ public class CreateOrdersTest extends BaseTest{
         ingredientList = given()
                 .header("Content-type", "application/json")
                 .get("/api/ingredients").as(Ingredients.class);
-    }
-
-    @Step("Compare result from request")
-    public void compareResult(Response response,String message, Boolean isSuccess, int statusCode) {
-        response.then().assertThat().body("message", equalTo(message))
-                .and().body("success", equalTo(isSuccess))
-                .and().statusCode(statusCode);
     }
 
     @Test

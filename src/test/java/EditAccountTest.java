@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 @Epic("Изменение пользователя")
 public class EditAccountTest extends BaseTest{
     HashMap<String, String> logPass = new HashMap<>();
-    String oldEmail = "alina22222@yandex.ru";
+    String oldEmail = "alina2222234@yandex.ru";
     String oldPassword = "1234";
     String oldName = "alina";
     String newEmail = "newEmail123@yandex.ru";

@@ -11,9 +11,6 @@ import org.junit.runners.Parameterized;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-
 @Epic("Регистрация")
 @RunWith(Parameterized.class)
 public class RegisterAccountTest extends BaseTest{
@@ -52,13 +49,6 @@ public class RegisterAccountTest extends BaseTest{
     }
 
 
-    @Step("Compare result from request")
-    public void compareResult(Response response) {
-        response.then().assertThat().body("message", equalTo(message))
-                .and().body("success", equalTo(isSuccess))
-                .and().statusCode(statusCode);
-    }
-
     @Test
     public void registerAccount(){
         if(email!=null)
@@ -69,7 +59,7 @@ public class RegisterAccountTest extends BaseTest{
             user.put("name", name);
         Account account = createUser(user);
         Response response = sendPostRequestRegisterUser(account);
-        compareResult(response);
+        compareResult(response, message, isSuccess, statusCode);
     }
 
     @After

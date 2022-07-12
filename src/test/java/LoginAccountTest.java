@@ -42,18 +42,11 @@ public class LoginAccountTest extends BaseTest {
         };
     }
 
-    @Step("Compare result from request")
-    public void compareResult(Response response) {
-        response.then().assertThat().body("message", equalTo(message))
-                .and().body("success", equalTo(isSuccess))
-                .and().statusCode(statusCode);
-    }
-
     @Test
     public void loginUser() {
         Account account = new Account(email, password);
         Response response = sendPostRequestAuthUser(account);
-        compareResult(response);
+        compareResult(response, message, isSuccess, statusCode);
     }
 
     @After

@@ -1,7 +1,6 @@
 import account.Account;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
-import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
@@ -10,7 +9,6 @@ import org.junit.Test;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 @Epic("Получение заказа пользователя")
@@ -26,7 +24,7 @@ public class GetOrderUserTest extends BaseTest{
 
     @Test
     @Description("Получаем список заказа пользователя без авторизации")
-    public void getOrderUserNotAuth(){
+    public void checkGetOrderUserNotAuth(){
        Response response = sendGetRequestOrders();
         response.then().assertThat().body("message", equalTo("You should be authorised"))
                 .and().body("success", equalTo(false))
@@ -35,7 +33,7 @@ public class GetOrderUserTest extends BaseTest{
 
     @Test
     @Description("Получаем список заказа пользователя с авторизацией")
-    public void getOrderUserWithAuth(){
+    public void checkGetOrderUserWithAuth(){
         Response response = sendGetRequestOrders(tokenInfo);
         response.then().assertThat().body("success", equalTo(true))
                 .and().statusCode(HttpURLConnection.HTTP_OK);
