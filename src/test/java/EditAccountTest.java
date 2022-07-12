@@ -12,7 +12,6 @@ import org.junit.Test;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 @Epic("Изменение пользователя")

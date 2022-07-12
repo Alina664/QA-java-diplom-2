@@ -1,3 +1,5 @@
-/target/
 /.idea/
-!/target/allure-results/
+/.allure/
+/.vs/
+/target/
+ !/target/allure-results

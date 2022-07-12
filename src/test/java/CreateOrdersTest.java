@@ -2,7 +2,7 @@ import account.Account;
 import ingredients.Ingredients;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
-import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
@@ -31,6 +31,7 @@ public class CreateOrdersTest extends BaseTest{
     }
 
     @Test
+    @DisplayName("Создание заказа с авторизацией и ингридиентами")
     @Description("Создаем заказ с авторизацией и ингридиентами")
     public void createOrderWithAuthAndIngredients(){
         ingredient.add(ingredientList.getData().get(0).get_id());
@@ -41,6 +42,7 @@ public class CreateOrdersTest extends BaseTest{
     }
 
     @Test
+    @DisplayName("Создание заказа без авторизации")
     @Description("Создаем заказ без авторизации")
     public void createOrderNotAuth(){
         ingredient.add(ingredientList.getData().get(0).get_id());
@@ -51,6 +53,7 @@ public class CreateOrdersTest extends BaseTest{
     }
 
     @Test
+    @DisplayName("Создание заказа без ингридиентов")
     @Description("Создаем заказ без ингридиентов")
     public void createOrderNotIngredients(){
         Response response = sendPostRequestCreateOrder(tokenInfo);
@@ -58,6 +61,7 @@ public class CreateOrdersTest extends BaseTest{
     }
 
     @Test
+    @DisplayName("Создание заказа с неверным хешем ингредиентов")
     @Description("Создаем заказ с неверным хешем ингредиентов")
     public void createOrderNotRightHash(){
         ingredient.add(ingredientList.getData().get(0).get_id());
