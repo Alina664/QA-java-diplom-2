@@ -42,18 +42,6 @@ public class LoginAccountTest extends BaseTest {
         };
     }
 
-    @Step("Send POST request /api/auth/login")
-    public Response sendPostRequestAuthUser(Account account) {
-        Response response =
-                given()
-                        .header("Content-type", "application/json")
-                        .and()
-                        .body(account)
-                        .when()
-                        .post("/api/auth/login");
-        return response;
-    }
-
     @Step("Compare result from request")
     public void compareResult(Response response) {
         response.then().assertThat().body("message", equalTo(message))

@@ -32,41 +32,10 @@ public class EditAccountTest extends BaseTest{
     @Before
     public void newAccount() {
         account = new Account(oldEmail, oldPassword, oldName);
-        tokenInfo = given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(account)
-                .when()
-                .post("/api/auth/register").as(TokenInfo.class);
+        tokenInfo = sendPostRequestRegisterUser(account).as(TokenInfo.class);
 
         accountDuplicate = new Account(duplicateEmail, oldPassword, oldName);
-        given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(accountDuplicate)
-                .when()
-                .post("/api/auth/register");
-    }
-
-    @Step("Send POST request with auth /api/auth/register")
-    public Response sendPatchRequestEditUser(Account account, String token) {
-        return given()
-                .header("Content-type", "application/json")
-                .auth().oauth2(token)
-                .and()
-                .body(account)
-                .when()
-                .patch("/api/auth/user");
-    }
-
-    @Step("Send POST request not auth /api/auth/register")
-    public Response sendPatchRequestEditUser(Account account) {
-        return given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(account)
-                .when()
-                .patch("/api/auth/user");
+        sendPostRequestRegisterUser(accountDuplicate);
     }
 
     @Step("Compare result from request not auth")

@@ -24,25 +24,6 @@ public class GetOrderUserTest extends BaseTest{
         tokenInfo = getAccessToken(user.get(0), user.get(1)).replace("Bearer ", "");
     }
 
-    @Step("Send Get request auth /api/orders")
-    public Response sendGetRequestOrders(String token) {
-        return given()
-                .header("Content-type", "application/json")
-                .auth().oauth2(token)
-                .and()
-                .when()
-                .get("/api/orders");
-    }
-
-    @Step("Send Get request not auth /api/orders")
-    public Response sendGetRequestOrders() {
-        return given()
-                .header("Content-type", "application/json")
-                .and()
-                .when()
-                .get("/api/orders");
-    }
-
     @Test
     @Description("Получаем список заказа пользователя без авторизации")
     public void getOrderUserNotAuth(){

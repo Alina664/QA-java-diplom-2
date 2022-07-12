@@ -44,17 +44,6 @@ public class RegisterAccountDuplicatesTest extends BaseTest{
         };
     }
 
-    // метод для шага "Отправить запрос":
-    @Step("Send POST request /api/auth/register")
-    public Response sendPostRequestRegisterUser(Account account) {
-        return given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(account)
-                .when()
-                .post("/api/auth/register");
-    }
-
     @Step("Compare result from request")
     public void compareResult(Response response) {
         response.then().assertThat().body("message", equalTo(message))

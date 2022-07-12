@@ -23,39 +23,6 @@ public class CreateOrdersTest extends BaseTest{
     ArrayList<String> user = account.registerNewAccountAndReturnLoginPassword();
     String tokenInfo;
 
-    // метод для шага "Отправить запрос":
-    @Step("Send POST request /api/orders")
-    public Response sendPostRequestCreateOrder(Ingredients ingredients) {
-        return given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(ingredients)
-                .when()
-                .post("/api/orders");
-    }
-
-    // метод для шага "Отправить запрос":
-    @Step("Send POST request /api/orders")
-    public Response sendPostRequestCreateOrder(Ingredients ingredients, String token) {
-        return given()
-                .header("Content-type", "application/json")
-                .auth().oauth2(token)
-                .and()
-                .body(ingredients)
-                .when()
-                .post("/api/orders");
-    }
-
-    // метод для шага "Отправить запрос":
-    @Step("Send POST request /api/orders")
-    public Response sendPostRequestCreateOrder(String token) {
-        return given()
-                .header("Content-type", "application/json")
-                .auth().oauth2(token)
-                .when()
-                .post("/api/orders");
-    }
-
     @Before
     public void getIngredient() {
         tokenInfo = getAccessToken(user.get(0), user.get(1)).replace("Bearer ", "");

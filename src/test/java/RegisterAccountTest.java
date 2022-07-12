@@ -46,17 +46,6 @@ public class RegisterAccountTest extends BaseTest{
         };
     }
 
-    // метод для шага "Отправить запрос":
-    @Step("Send POST request /api/auth/register")
-    public Response sendPostRequestRegisterUser(Account account) {
-        return given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(account)
-                .when()
-                .post("/api/auth/register");
-    }
-
     @Step("Create user")
     public Account createUser(HashMap<String, String> account) {
         return new Account(account);
